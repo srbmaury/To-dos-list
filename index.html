@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>color</title>
+</head>
+<body>
+    <div class="alert alert-warning" role="alert" id="alert">
+        <strong>Input box can not be empty </strong>
+    </div>
+    <div id="main-box">
+        <div class="color"></div>
+        <h1 class="main-heading">To-do List</h1>
+        <input type="text" id="input" maxlength="20" placeholder="Enter your task" required autofocus/>
+        <button id="button" onclick="add()">+</button>
+    </div>
+    <style>
+        body{
+            background-color:#6C72CB;
+        }
+        #main-box{
+            margin-top:24vh;
+            margin-left:38vw;
+        }
+        #alert{
+            visibility: hidden;
+        }
+        button{
+            background-color: transparent;
+            border: none;
+            background-repeat: no-repeat;
+        }
+        .main-heading{
+            margin-left:4.5%;
+            margin-top:-15vh;
+            margin-bottom: 5vh;
+            color:white;
+            font-family: 'Akronim', cursive;
+        }
+        #button{
+            background: azure;
+            border-radius: 3px;
+            width: 4.50vmin !important;
+            height: 4.25vmin !important;
+            padding: 0 !important;
+            font-weight: 900;
+            font-size: 20px !important;
+            margin-left: 1vw !important;
+            padding-bottom: 5vh !important;
+            padding-left: 8px !important;
+            padding-right: 12px !important;
+        }
+        .deletebuttons{
+            background-image: url('delete-16.png');
+            background-repeat: no-repeat;
+        }
+        .editbuttons{
+            background-image: url('edit-2-16.png');
+            background-repeat: no-repeat;
+        }
+        input{
+            margin-bottom: 6.5vh;
+            margin-left: 0.9vw !important;
+        }
+        
+    </style>
+    <script>
+        var button = document.getElementById('button');
+        var input = document.getElementById('input');
+        var alert = document.getElementById('alert');
+        var mainBox = document.getElementById('main-box');
+        var allbuttons = document.getElementsByTagName('button');
+        var i = 0;
+        
+        const valueMap = new Map();
+
+        function add(){
+            var x = input.value;
+            if(x == ''){
+                alert.style.visibility = 'visible';
+                setTimeout(() => {
+                    alert.style.visibility = 'hidden';
+                }, 2000);
+                return;
+            }
+            alert.style.visibility = 'hidden';
+            var div = document.createElement('div');
+            div.setAttribute('id', i+'be');
+            div.style.width='20.5vw';
+            div.style.backgroundColor = 'aqua';
+            div.style.margin='5px';
+            div.style.marginLeft ='-18px';
+            div.style.overflow = 'hidden';
+            div.style.padding = '5px';
+            div.style.paddingRight = '2px';
+            div.style.borderRadius = '5px';
+            mainBox.appendChild(div);
+            div.innerHTML = x;
+            valueMap.set(x,i+1);
+            input.value = '';
+            i++;
+            
+            var inner_button = document.createElement('button');
+            inner_button.setAttribute('id', i);
+            inner_button.style.width='23px';
+            inner_button.style.height='22px';
+            inner_button.style.float='right';
+            inner_button.style.marginTop='5px';
+            inner_button.className='deletebuttons';
+            div.appendChild(inner_button);
+            function remove() {
+                this.parentNode.parentNode.removeChild(this.parentNode);
+            }
+            inner_button.addEventListener('click', remove, false);
+
+
+
+            var edit_button = document.createElement('button');
+            edit_button.setAttribute('id', i+'e');
+            edit_button.style.width='23px';
+            edit_button.style.height='22px';
+            edit_button.style.float='right';
+            edit_button.style.marginTop='5px';
+            edit_button.className='editbuttons';
+            edit_button.innerHTML=" ";
+            div.appendChild(edit_button);
+            var editing = 0;
+            
+            edit_button.addEventListener("click", function() {
+                let collectdata=div.innerHTML.split("<")[0];
+                if(editing === 0){
+                    this.parentNode.style.backgroundColor = "yellow";
+                    editing = 1;
+                    document.getElementById('input').style.backgroundColor='pink';
+                    edit_button.style.backgroundImage="url('check-mark-3-16.png')";
+                    for(var i=0; i<allbuttons.length; i++)
+                        allbuttons[i].disabled=true;
+                    edit_button.disabled = false;
+                    valueMap.forEach(function(value,key){
+                        if(value == inner_button.id){
+                            input.value = collectdata;
+                        }
+                    });
+                    input.focus();
+                }
+                else{
+                    // console.log(document.getElementById('input').value);
+                    for(var i=0; i<allbuttons.length; i++)
+                        allbuttons[i].disabled=false;
+                    var x = input.value;
+                    collectdata=input.value;
+                    if(x == ''){
+                        alert.style.visibility = 'visible';
+                        setTimeout(() => {
+                            alert.style.visibility = 'hidden';
+                        }, 2000);
+                        return;
+                    }
+                    if(x!=''){
+                        document.getElementById('input').style.backgroundColor='white';
+                        edit_button.style.backgroundImage="url('edit-2-16.png')";
+                        this.parentNode.style.backgroundColor = "aqua";
+                        editing = 0;
+                        div.firstChild=x;
+                        div.innerHTML=x;
+                        div.appendChild(inner_button);
+                        div.appendChild(edit_button);
+                        input.value='';
+                    }
+                    input.focus();
+                }
+            });
+            
+            document.addEventListener("keydown", function (e) {
+                if (e.code === "Enter" && inner_button.disabled === false) {  
+                    add();
+                }
+            });
+            input.focus();
+        }
+    </script>
+</body>
+</html>
