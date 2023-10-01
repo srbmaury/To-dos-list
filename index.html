@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap">
     <title>To-do-list</title>
 </head>
 <body>
@@ -13,17 +14,24 @@
     </div>
     <div id="main-box">
         <div class="color"></div>
-        <h1 class="main-heading">To-do List</h1>
-        <input type="text" id="input" maxlength="20" placeholder="Enter your task" required autofocus/>
+        <h1 class="main-heading">To-Do List</h1>
+    </div>
+    <div id="input-box">
+        <input type="text" id="input" maxlength="20" placeholder="Enter Your Task" required autofocus/>
         <button id="button" onclick="add()">+</button>
     </div>
+    <div id="checklist-container"></div>  
     <style>
         body{
             background-color:#6C72CB;
         }
         #main-box{
-            margin-top:24vh;
-            margin-left:38vw;
+            margin-top:15vh;
+            margin-left:41vw;
+        }
+        #input-box{
+            margin-top:8vh;
+            margin-left:28vw;
         }
         #alert{
             visibility: hidden;
@@ -34,24 +42,27 @@
             background-repeat: no-repeat;
         }
         .main-heading{
-            margin-left:4.5%;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
             margin-top:-15vh;
             margin-bottom: 5vh;
             color:white;
-            font-family: 'Akronim', cursive;
+            font-family: 'Young Serif', serif;
         }
         #button{
             background: azure;
-            border-radius: 3px;
-            width: 4.50vmin;
-            height: 4.25vmin;
+            border-radius: 7px;
+            width: 5.00vmin;
+            height: 5.55vmin;
             padding: 0 !important;
             font-weight: 900;
             font-size: 20px !important;
-            margin-left: 1vw !important;
-            padding-bottom: 5vh !important;
-            padding-left: 8px !important;
-            padding-right: 12px !important;
+            margin-left: 2vw !important;
+            padding-top: auto !important;
+            padding-bottom: auto !important;
+            padding-left: auto !important;
+            padding-right: auto !important;
         }
         .deletebuttons{
             background-image: url('delete-16.png');
@@ -62,19 +73,31 @@
             background-repeat: no-repeat;
         }
         input{
-            margin-bottom: 6.5vh;
-            margin-left: 0.9vw; 
+            width :  560px;
+            display : inline;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20px;
+            line-height: 24px;
+            border: 1px solid #244ea4;
+            border-radius: 5px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 30px;
+            padding-right: 30px;
         }
-        .input-divs{
-            width:20.5vw;
-            background-color:aqua;
-            margin:5px;
-            margin-left:-18px;
-            overflow:hidden;
-            padding:5px;
-            padding-right:2px;
-            border-radius:5px;
+        .input-divs {
+            width: 450px; 
+            background-color: rgb(206, 106, 204);
+            margin: 6px;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: hidden;
+            padding: 5px;
+            padding-right: 2px;
+            border-radius: 5px;
         }
+
         .edit-and-dlt{
             width:23px;
             height:22px;
@@ -130,7 +153,8 @@
             var div = document.createElement('div');
             div.setAttribute('id', i+'be');
             div.className="input-divs";
-            mainBox.appendChild(div);
+            document.getElementById('checklist-container').appendChild(div);
+            div.style.backgroundColor = 'rgb(206, 106, 204)';
             div.innerHTML = x;
             valueMap.set(x,i+1);
             input.value = '';
@@ -157,7 +181,7 @@
             edit_button.addEventListener("click", function() {
                 let collectdata=div.innerHTML.split("<")[0];
                 if(editing === 0){
-                    this.parentNode.style.backgroundColor = "yellow";
+                    this.parentNode.style.backgroundColor = "Grey";
                     editing = 1;
                     document.getElementById('input').style.backgroundColor='pink';
                     edit_button.style.backgroundImage="url('check-mark-3-16.png')";
@@ -187,7 +211,7 @@
                     if(x!=''){
                         document.getElementById('input').style.backgroundColor='white';
                         edit_button.style.backgroundImage="url('edit-2-16.png')";
-                        this.parentNode.style.backgroundColor = "aqua";
+                        this.parentNode.style.backgroundColor = 'rgb(206, 106, 204)';
                         editing = 0;
                         div.firstChild=x;
                         div.innerHTML=x;
