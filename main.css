@@ -1,0 +1,101 @@
+body {
+  background-color: #6c72cb;
+}
+#main-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+/* #input-box {
+  margin-top: 8vh;
+  margin-left: 28vw;
+} */
+#alert {
+  visibility: hidden;
+}
+button {
+  background-color: transparent;
+  border: none;
+  background-repeat: no-repeat;
+}
+.main-heading {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  color: white;
+  font-family: "Young Serif", serif;
+}
+#button {
+  background: azure;
+  border-radius: 7px;
+  width: 40px;
+  height: 46px;
+  padding: 0 !important;
+  font-weight: 900;
+  font-size: 20px !important;
+  margin-left: 2vw !important;
+}
+.deletebuttons {
+  background-image: url("delete-16.png");
+  background-repeat: no-repeat;
+}
+.editbuttons {
+  background-image: url("edit-2-16.png");
+  background-repeat: no-repeat;
+}
+input {
+  width: 480px;
+  margin-bottom: 20px;
+  margin-top: 8vh;
+  line-height: 24px;
+  border: 3px solid #244ea4;
+  border-radius: 5px;
+  padding: 10px 30px 10px 30px;
+}
+input:focus {
+  outline: none;
+  border: 3px solid #0a3236;
+}
+.input-divs {
+  width: 538px;
+  margin: 6px;
+  background-color: rgb(206, 106, 204);
+  overflow: hidden;
+  border-radius: 5px;
+  padding: 10px 30px 10px 30px;
+}
+
+.edit-and-dlt {
+  width: 23px;
+  height: 22px;
+  float: right;
+  margin-top: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  input {
+    width: 350px;
+  }
+  .input-divs {
+    width: 408px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  input {
+    width: 270px;
+  }
+  .input-divs {
+    width: 328px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  input {
+    width: 250px;
+  }
+  .input-divs {
+    width: 308px;
+  }
+}

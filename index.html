@@ -1,229 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap"
+    />
+    <link rel="stylesheet" href="./main.css" />
     <title>To-do-list</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="alert alert-warning" role="alert" id="alert">
-        <strong>Input box can not be empty </strong>
+      <strong>Input box can not be empty </strong>
     </div>
     <div id="main-box">
-        <div class="color"></div>
-        <h1 class="main-heading">To-Do List</h1>
-    </div>
-    <div id="input-box">
-        <input type="text" id="input" maxlength="20" placeholder="Enter Your Task" required autofocus/>
+      <div class="color"></div>
+      <h1 class="main-heading">To-Do List</h1>
+      <div id="input-box">
+        <input
+          type="text"
+          id="input"
+          maxlength="20"
+          placeholder="Enter Your Task"
+          required
+          autofocus
+        />
         <button id="button" onclick="add()">+</button>
+      </div>
+      <div id="checklist-container"></div>
     </div>
-    <div id="checklist-container"></div>  
-    <style>
-        body{
-            background-color:#6C72CB;
-        }
-        #main-box{
-            margin-top:15vh;
-            margin-left:41vw;
-        }
-        #input-box{
-            margin-top:8vh;
-            margin-left:28vw;
-        }
-        #alert{
-            visibility: hidden;
-        }
-        button{
-            background-color: transparent;
-            border: none;
-            background-repeat: no-repeat;
-        }
-        .main-heading{
-            margin-left: auto;
-            margin-right: auto;
-            display: block;
-            margin-top:-15vh;
-            margin-bottom: 5vh;
-            color:white;
-            font-family: 'Young Serif', serif;
-        }
-        #button{
-            background: azure;
-            border-radius: 7px;
-            width: 5.00vmin;
-            height: 5.55vmin;
-            padding: 0 !important;
-            font-weight: 900;
-            font-size: 20px !important;
-            margin-left: 2vw !important;
-            padding-top: auto !important;
-            padding-bottom: auto !important;
-            padding-left: auto !important;
-            padding-right: auto !important;
-        }
-        .deletebuttons{
-            background-image: url('delete-16.png');
-            background-repeat: no-repeat;
-        }
-        .editbuttons{
-            background-image: url('edit-2-16.png');
-            background-repeat: no-repeat;
-        }
-        input{
-            width :  560px;
-            display : inline;
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 20px;
-            line-height: 24px;
-            border: 1px solid #244ea4;
-            border-radius: 5px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            padding-left: 30px;
-            padding-right: 30px;
-        }
-        .input-divs {
-            width: 450px; 
-            background-color: rgb(206, 106, 204);
-            margin: 6px;
-            margin-left: auto;
-            margin-right: auto;
-            overflow: hidden;
-            padding: 5px;
-            padding-right: 2px;
-            border-radius: 5px;
-        }
 
-        .edit-and-dlt{
-            width:23px;
-            height:22px;
-            float:right;
-            margin-top:5px;
-        }
-        @media only screen and (max-width:600px){
-            input{
-                margin-left: -20vw !important;
-            }
-            .main-heading{
-                margin-left: -10vw;
-            }
-            #button{
-                display:inline-block;
-                width:30px !important;
-                height:32px !important;
-            }
-            .input-divs{
-                width: 85vw !important;
-                margin-left: -30vw;
-            }
-        }
-        
-    </style>
     <script>
-        var button = document.getElementById('button');
-        var input = document.getElementById('input');
-        var alert = document.getElementById('alert');
-        var mainBox = document.getElementById('main-box');
-        var allbuttons = document.getElementsByTagName('button');
-        var i = 0;
-        var not_added = true;
-        const valueMap = new Map();
-        document.addEventListener("keydown", function (e) {
-            if (e.code === "Enter" && not_added) {  
-                add();
-            }
-        });
-        input.focus();
-
-        function add(){
-            var x = input.value;
-            console.log(x);
-            if(x == ''){
-                alert.style.visibility = 'visible';
-                setTimeout(() => {
-                    alert.style.visibility = 'hidden';
-                }, 2000);
-                return;
-            }
-            alert.style.visibility = 'hidden';
-            var div = document.createElement('div');
-            div.setAttribute('id', i+'be');
-            div.className="input-divs";
-            document.getElementById('checklist-container').appendChild(div);
-            div.style.backgroundColor = 'rgb(206, 106, 204)';
-            div.innerHTML = x;
-            valueMap.set(x,i+1);
-            input.value = '';
-            i++;
-            
-            var inner_button = document.createElement('button');
-            inner_button.setAttribute('id', i);
-            inner_button.className='deletebuttons edit-and-dlt';
-            
-            div.appendChild(inner_button);
-            function remove() {
-                this.parentNode.parentNode.removeChild(this.parentNode);
-            }
-            inner_button.addEventListener('click', remove, false);
-
-
-            var edit_button = document.createElement('button');
-            edit_button.setAttribute('id', i+'e');
-            edit_button.className='editbuttons edit-and-dlt';
-            edit_button.innerHTML=" ";
-            div.appendChild(edit_button);
-            var editing = 0;
-            
-            edit_button.addEventListener("click", function() {
-                let collectdata=div.innerHTML.split("<")[0];
-                if(editing === 0){
-                    this.parentNode.style.backgroundColor = "Grey";
-                    editing = 1;
-                    document.getElementById('input').style.backgroundColor='pink';
-                    edit_button.style.backgroundImage="url('check-mark-3-16.png')";
-                    for(var i=0; i<allbuttons.length; i++)
-                        allbuttons[i].disabled=true;
-                    edit_button.disabled = false;
-                    valueMap.forEach(function(value,key){
-                        if(value == inner_button.id){
-                            input.value = collectdata;
-                        }
-                    });
-                    not_added = false;
-                    input.focus();
-                }
-                else{
-                    for(var i=0; i<allbuttons.length; i++)
-                        allbuttons[i].disabled=false;
-                    var x = input.value;
-                    collectdata=input.value;
-                    if(x == ''){
-                        alert.style.visibility = 'visible';
-                        setTimeout(() => {
-                            alert.style.visibility = 'hidden';
-                        }, 2000);
-                        return;
-                    }
-                    if(x!=''){
-                        document.getElementById('input').style.backgroundColor='white';
-                        edit_button.style.backgroundImage="url('edit-2-16.png')";
-                        this.parentNode.style.backgroundColor = 'rgb(206, 106, 204)';
-                        editing = 0;
-                        div.firstChild=x;
-                        div.innerHTML=x;
-                        div.appendChild(inner_button);
-                        div.appendChild(edit_button);
-                        input.value='';
-                    }
-                    not_added = true;
-                    input.focus();
-                }
-            });
+      var button = document.getElementById("button");
+      var input = document.getElementById("input");
+      var alert = document.getElementById("alert");
+      var mainBox = document.getElementById("main-box");
+      var allbuttons = document.getElementsByTagName("button");
+      var i = 0;
+      var not_added = true;
+      const valueMap = new Map();
+      document.addEventListener("keydown", function (e) {
+        if (e.code === "Enter" && not_added) {
+          add();
         }
+      });
+      input.focus();
+
+      function add() {
+        var x = input.value;
+        console.log(x);
+        if (x == "") {
+          alert.style.visibility = "visible";
+          setTimeout(() => {
+            alert.style.visibility = "hidden";
+          }, 2000);
+          return;
+        }
+        alert.style.visibility = "hidden";
+        var div = document.createElement("div");
+        div.setAttribute("id", i + "be");
+        div.className = "input-divs";
+        document.getElementById("checklist-container").appendChild(div);
+        div.style.backgroundColor = "rgb(206, 106, 204)";
+        div.innerHTML = x;
+        valueMap.set(x, i + 1);
+        input.value = "";
+        i++;
+
+        var inner_button = document.createElement("button");
+        inner_button.setAttribute("id", i);
+        inner_button.className = "deletebuttons edit-and-dlt";
+
+        div.appendChild(inner_button);
+        function remove() {
+          this.parentNode.parentNode.removeChild(this.parentNode);
+        }
+        inner_button.addEventListener("click", remove, false);
+
+        var edit_button = document.createElement("button");
+        edit_button.setAttribute("id", i + "e");
+        edit_button.className = "editbuttons edit-and-dlt";
+        edit_button.innerHTML = " ";
+        div.appendChild(edit_button);
+        var editing = 0;
+
+        edit_button.addEventListener("click", function () {
+          let collectdata = div.innerHTML.split("<")[0];
+          if (editing === 0) {
+            this.parentNode.style.backgroundColor = "Grey";
+            editing = 1;
+            document.getElementById("input").style.backgroundColor = "pink";
+            edit_button.style.backgroundImage = "url('check-mark-3-16.png')";
+            for (var i = 0; i < allbuttons.length; i++)
+              allbuttons[i].disabled = true;
+            edit_button.disabled = false;
+            valueMap.forEach(function (value, key) {
+              if (value == inner_button.id) {
+                input.value = collectdata;
+              }
+            });
+            not_added = false;
+            input.focus();
+          } else {
+            for (var i = 0; i < allbuttons.length; i++)
+              allbuttons[i].disabled = false;
+            var x = input.value;
+            collectdata = input.value;
+            if (x == "") {
+              alert.style.visibility = "visible";
+              setTimeout(() => {
+                alert.style.visibility = "hidden";
+              }, 2000);
+              return;
+            }
+            if (x != "") {
+              document.getElementById("input").style.backgroundColor = "white";
+              edit_button.style.backgroundImage = "url('edit-2-16.png')";
+              this.parentNode.style.backgroundColor = "rgb(206, 106, 204)";
+              editing = 0;
+              div.firstChild = x;
+              div.innerHTML = x;
+              div.appendChild(inner_button);
+              div.appendChild(edit_button);
+              input.value = "";
+            }
+            not_added = true;
+            input.focus();
+          }
+        });
+      }
     </script>
-</body>
+  </body>
 </html>
