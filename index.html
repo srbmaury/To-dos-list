@@ -16,10 +16,12 @@
         <div class="color"></div>
         <h1 class="main-heading">To-Do List</h1>
     </div>
-    <div id="input-box">
-        <input type="text" id="input" maxlength="20" placeholder="Enter Your Task" required autofocus/>
-        <button id="button" onclick="add()">+</button>
-    </div>
+    <form id="task-form" action="">
+        <div id="input-box"  >
+            <input type="text" id="input" maxlength="20" placeholder="Enter Your Task" required autofocus />
+            <button type="button" id="submit" onclick="add()" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
     <div id="checklist-container"></div>  
     <style>
         body{
