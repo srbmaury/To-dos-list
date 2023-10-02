@@ -29,12 +29,13 @@ button {
 #button {
   background: azure;
   border-radius: 7px;
-  width: 40px;
+  width: 80px;
   height: 46px;
   padding: 0 !important;
   font-weight: 900;
   font-size: 20px !important;
   margin-left: 2vw !important;
+  font-family: serif;
 }
 .deletebuttons {
   background-image: url("delete-16.png");
