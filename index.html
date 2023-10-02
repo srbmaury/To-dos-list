@@ -33,7 +33,7 @@
           required
           autofocus
         />
-        <button id="button" onclick="add()">+</button>
+        <button type="button" id="submit" onclick="add()" class="btn btn-primary">Submit</button>
       </div>
       <div id="checklist-container"></div>
     </div>
@@ -44,6 +44,9 @@
       var alert = document.getElementById("alert");
       var mainBox = document.getElementById("main-box");
       var allbuttons = document.getElementsByTagName("button");
+      const modeToggleBtn = document.getElementById('modeToggle');
+    modeToggleBtn.addEventListener('click', toggleMode);
+
       var i = 0;
       var not_added = true;
       const valueMap = new Map();
@@ -53,7 +56,16 @@
         }
       });
       input.focus();
-
+      function toggleMode() {
+    const body = document.body;
+    if (body.classList.contains('light-mode')) {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+    } else {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+    }
+}
       function add() {
         var x = input.value;
         console.log(x);
